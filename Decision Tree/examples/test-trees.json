@@ -1,0 +1,186 @@
+{
+  "examples": [
+    {
+      "name": "simple_sms",
+      "description": "Simple SMS action",
+      "tree": {
+        "rootAction": {
+          "type": "send_sms",
+          "phoneNumber": "+1234567890",
+          "message": "Hello from Decision Tree!"
+        },
+        "context": {}
+      }
+    },
+    {
+      "name": "simple_email",
+      "description": "Simple email action",
+      "tree": {
+        "rootAction": {
+          "type": "send_email",
+          "sender": "system@example.com",
+          "receiver": "user@example.com",
+          "subject": "Test Email",
+          "body": "This is a test email from the decision tree system."
+        },
+        "context": {}
+      }
+    },
+    {
+      "name": "christmas_greeting",
+      "description": "Send Christmas SMS on January 1st, 2025",
+      "tree": {
+        "rootAction": {
+          "type": "condition",
+          "expression": "new Date().toDateString() === new Date('2025-01-01').toDateString()",
+          "trueAction": {
+            "type": "send_sms",
+            "phoneNumber": "+1234567890",
+            "message": "Happy Christmas 2025!"
+          },
+          "falseAction": {
+            "type": "send_sms",
+            "phoneNumber": "+1234567890",
+            "message": "Not Christmas yet!"
+          }
+        },
+        "context": {}
+      }
+    },
+    {
+      "name": "loop_10_conditional_sms",
+      "description": "Loop 10 times, send SMS on even iterations",
+      "tree": {
+        "rootAction": {
+          "type": "loop",
+          "iterations": 10,
+          "action": {
+            "type": "condition",
+            "expression": "loopIndex % 2 === 0",
+            "trueAction": {
+              "type": "send_sms",
+              "phoneNumber": "+1234567890",
+              "message": "Even iteration SMS"
+            }
+          }
+        },
+        "context": {}
+      }
+    },
+    {
+      "name": "temperature_alert",
+      "description": "Complex nested logic with temperature check",
+      "tree": {
+        "rootAction": {
+          "type": "condition",
+          "expression": "temperature > 30",
+          "trueAction": {
+            "type": "loop",
+            "iterations": 3,
+            "action": {
+              "type": "send_email",
+              "sender": "alerts@example.com",
+              "receiver": "admin@example.com",
+              "subject": "High Temperature Alert",
+              "body": "Temperature exceeded 30 degrees threshold"
+            }
+          },
+          "falseAction": {
+            "type": "send_sms",
+            "phoneNumber": "+1234567890",
+            "message": "Temperature is within normal range"
+          }
+        },
+        "context": {
+          "temperature": 35
+        }
+      }
+    },
+    {
+      "name": "user_age_check",
+      "description": "Send different messages based on user age",
+      "tree": {
+        "rootAction": {
+          "type": "condition",
+          "expression": "age >= 18",
+          "trueAction": {
+            "type": "send_email",
+            "sender": "system@example.com",
+            "receiver": "user@example.com",
+            "subject": "Welcome Adult User",
+            "body": "You have full access to our services."
+          },
+          "falseAction": {
+            "type": "send_email",
+            "sender": "system@example.com",
+            "receiver": "parent@example.com",
+            "subject": "Parental Consent Required",
+            "body": "User is under 18, parental consent needed."
+          }
+        },
+        "context": {
+          "age": 25
+        }
+      }
+    },
+    {
+      "name": "multi_level_nested",
+      "description": "Complex multi-level nested actions",
+      "tree": {
+        "rootAction": {
+          "type": "condition",
+          "expression": "isPremiumUser === true",
+          "trueAction": {
+            "type": "loop",
+            "iterations": 5,
+            "action": {
+              "type": "condition",
+              "expression": "loopIndex < 3",
+              "trueAction": {
+                "type": "send_email",
+                "sender": "premium@example.com",
+                "receiver": "user@example.com",
+                "subject": "Premium Offer",
+                "body": "Special premium offer for you!"
+              },
+              "falseAction": {
+                "type": "send_sms",
+                "phoneNumber": "+1234567890",
+                "message": "Thank you for being a premium member"
+              }
+            }
+          },
+          "falseAction": {
+            "type": "send_email",
+            "sender": "marketing@example.com",
+            "receiver": "user@example.com",
+            "subject": "Upgrade to Premium",
+            "body": "Upgrade your account to get premium features!"
+          }
+        },
+        "context": {
+          "isPremiumUser": true
+        }
+      }
+    },
+    {
+      "name": "simple_loop",
+      "description": "Simple loop sending 3 emails",
+      "tree": {
+        "rootAction": {
+          "type": "loop",
+          "iterations": 3,
+          "action": {
+            "type": "send_email",
+            "sender": "newsletter@example.com",
+            "receiver": "subscriber@example.com",
+            "subject": "Newsletter",
+            "body": "This is your newsletter"
+          }
+        },
+        "context": {}
+      }
+    }
+  ]
+}
+
